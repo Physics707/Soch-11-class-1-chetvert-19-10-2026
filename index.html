@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>СОЧ · Физика · 11 класс ОГН · 1 четверть</title>
+<style>
+:root{--b:#2563eb;--tx:#0f172a}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,"Segoe UI",Roboto,sans-serif;background:linear-gradient(160deg,#e0ecff,#fdf2ff);color:var(--tx);min-height:100vh}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:18px;padding:20px;margin:0 0 16px;box-shadow:0 6px 24px #1e3a8a1f}
+h1{margin:0 0 6px;font-size:23px;background:linear-gradient(90deg,#2563eb,#db2777);-webkit-background-clip:text;background-clip:text;color:transparent}
+label.f{display:block;font-weight:600;margin:14px 0 4px}
+input[type=text],select,textarea{width:100%;padding:11px 12px;font:inherit;border:2px solid #cbd5e1;border-radius:12px;background:#fff;color:var(--tx)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--b)}
+textarea{min-height:90px;resize:vertical}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:12px 22px;color:#fff;background:linear-gradient(90deg,#2563eb,#7c3aed);cursor:pointer;margin-top:16px}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.red{background:linear-gradient(90deg,#dc2626,#f97316)}
+ul.r{padding-left:20px}ul.r li{margin:6px 0}
+#bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;gap:8px;padding:10px 16px;background:#1e3a8a;color:#fff;font-weight:600;font-size:15px}
+#bar.low{background:#b91c1c}
+.task h2{margin:0 0 8px;font-size:18px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.task h2 small{flex-basis:100%;font-weight:400;color:#64748b;font-size:13px}
+.n{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--b);color:#fff;font-size:15px}
+.pt{color:#c2410c}
+.part{margin:12px 0;padding:10px 12px;background:#f8fafc;border-radius:12px;border-left:5px solid #f59e0b}
+.hint{font-size:13px;color:#475569;margin-top:4px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:6px}
+.op{border:2px solid #cbd5e1;border-radius:12px;padding:6px;cursor:pointer;display:block;background:#fff}
+.op:has(input:checked){border-color:var(--b);background:#eff6ff}
+.op b{margin-right:6px}
+.g{width:100%;max-width:380px;height:auto;display:block;margin:8px auto;background:#fff;border-radius:8px}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center;margin:6px 0}
+.mod{position:fixed;inset:0;background:#0009;display:grid;place-items:center;z-index:10;padding:16px}
+.hid{display:none!important}
+.big{font-size:40px;font-weight:800;color:#2563eb}
+@media(max-width:520px){.mrow{grid-template-columns:1fr}}
+</style></head><body>
+
+<div id="s1" class="wrap"><div class="card">
+<h1>Суммативное оценивание за 1 четверть</h1>
+<div>Физика · 11 класс ОГН · максимум 30 баллов · 40 минут</div>
+<label class="f" for="nm">Фамилия и имя учащегося</label>
+<input id="nm" type="text" placeholder="Введите ФИ" autocomplete="off">
+<label class="f" for="cl">Класс</label>
+<select id="cl"><option value="">— выберите —</option><option>11Б</option></select>
+<label class="f" for="vr">Вариант</label>
+<select id="vr"><option value="">— выберите —</option><option value="1">Вариант 1</option><option value="2">Вариант 2</option></select>
+<button id="nx" disabled>Далее</button>
+</div></div>
+
+<div id="s2" class="wrap hid"><div class="card">
+<h1>Правила выполнения работы</h1>
+<ul class="r">
+<li>Время выполнения — <b>40 минут</b>. По истечении таймера работа завершается автоматически.</li>
+<li>Напротив каждого задания и вопроса в квадратных скобках указаны баллы. Всего — 30 баллов.</li>
+<li><b>Нельзя сворачивать окно и переключать вкладки</b> — работа будет завершена сразу.</li>
+<li>Изменение размера окна браузера: первый раз — предупреждение, второй раз — работа завершается.</li>
+<li>Экранная клавиатура и случайное нажатие на адресную строку нарушением не считаются.</li>
+<li>В расчётных заданиях выберите формулу из списка и введите числовой ответ <b>без единиц измерения</b>.</li>
+<li>Не обновляйте страницу и не закрывайте вкладку до конца работы.</li>
+</ul>
+<button id="go">Начать работу</button>
+</div></div>
+
+<div id="s3" class="hid">
+<div id="bar"><span id="who"></span><span id="tm">40:00</span></div>
+<div class="wrap"><div id="tasks"></div>
+<button id="fin" class="red">Завершить работу и отправить</button></div></div>
+
+<div id="s4" class="wrap hid"><div class="card" style="text-align:center">
+<h1>Работа завершена</h1>
+<div id="rs"></div><div class="big" id="sc"></div>
+<div id="st" style="margin-top:10px"></div>
+<button id="rt" class="hid">Отправить ещё раз</button>
+</div></div>
+
+<div id="md" class="mod hid"><div class="card"><p id="mt" style="font-size:17px"></p><button id="mok">Понятно</button></div></div>
+
+<script>
+const SHEET_URL='https://script.google.com/macros/s/AKfycbzd0XXfkyyBoJS6_IFn_sDQOmoLhn02bPSjszsOJjwx0uvdS5VvcPbHnj6en-B8mbAb5w/exec';
+const DUR=40*60,MAXS=30,LET='АБВГ';
+const $=s=>document.querySelector(s),fmt=n=>+n.toFixed(2),PI=Math.PI;
+const rnd=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+/* ---------- SVG ---------- */
+function graph(o){const{x1,xs,ym,ys,f,xl,yl,c,cw=26}=o,nx=Math.round(x1/xs),ny=Math.round(2*ym/ys),L=42,T=16,gw=nx*cw,gh=ny*cw,W=L+gw+24,H=T+gh+36;
+const X=t=>L+t/xs*cw,Y=v=>T+(ym-v)/ys*cw,n=v=>+v.toFixed(2);
+let s=`<svg class="g" viewBox="0 0 ${W} ${H}" font-family="Arial" font-size="${cw<20?9:11}"><rect x="${L}" y="${T}" width="${gw}" height="${gh}" fill="#fffef2"/>`;
+for(let i=0;i<=nx;i++)s+=`<path d="M${L+i*cw} ${T}V${T+gh}" stroke="#93c5fd" stroke-width=".8"/><text x="${L+i*cw}" y="${T+gh+13}" text-anchor="middle">${n(i*xs)}</text>`;
+for(let j=0;j<=ny;j++)s+=`<path d="M${L} ${T+j*cw}H${L+gw}" stroke="#93c5fd" stroke-width=".8"/><text x="${L-4}" y="${T+j*cw+4}" text-anchor="end">${n(ym-j*ys)}</text>`;
+s+=`<path d="M${L} ${T}V${T+gh}M${L} ${Y(0)}H${L+gw}" stroke="#111" stroke-width="2"/>`;
+let d='';for(let k=0;k<=240;k++){const t=x1*k/240;d+=(k?'L':'M')+n(X(t))+' '+n(Y(f(t)))}
+return s+`<path d="${d}" fill="none" stroke="${c}" stroke-width="2.6"/><text x="${W-4}" y="${H-3}" text-anchor="end" font-weight="700">${xl}</text><text x="2" y="11" font-weight="700">${yl}</text></svg>`}
+
+function gen(a){const r=a*PI/180,dx=40*Math.cos(r),dy=40*Math.sin(r);let s=`<svg class="g" viewBox="0 0 200 130" font-family="Arial"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#f59e0b"/></marker></defs>
+<rect x="4" y="25" width="34" height="80" rx="5" fill="#ef4444"/><text x="21" y="72" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">N</text>
+<rect x="162" y="25" width="34" height="80" rx="5" fill="#3b82f6"/><text x="179" y="72" text-anchor="middle" fill="#fff" font-size="20" font-weight="700">S</text>`;
+[40,52,78,90].forEach(y=>s+=`<path d="M40 ${y}H158" stroke="#f59e0b" stroke-width="2" marker-end="url(#ar)"/>`);
+return s+`<text x="100" y="18" text-anchor="middle" font-size="12" fill="#b45309">линии магнитной индукции B</text>
+<line x1="${100-dx}" y1="${65+dy}" x2="${100+dx}" y2="${65-dy}" stroke="#16a34a" stroke-width="6" stroke-linecap="round"/>
+<circle cx="${100-dx}" cy="${65+dy}" r="5" fill="#facc15" stroke="#854d0e"/><circle cx="${100+dx}" cy="${65-dy}" r="5" fill="#facc15" stroke="#854d0e"/>
+<circle cx="100" cy="65" r="3.5" fill="#111"/><text x="100" y="122" text-anchor="middle" font-size="11" fill="#166534">рамка (вид сверху)</text></svg>`}
+
+/* ---------- ЗАДАНИЯ ---------- */
+function build(v){const a=v==1,sq=Math.sqrt;
+const A=a?4:6,Tt=a?2:4,w=2*PI/Tt,vm=A*w,wt=a?'π':'π/2',w2=a?'2π':'π';
+const g1={x1:a?4:8,xs:a?.5:1,ym:a?5:8,ys:a?1:2};
+const vc={x1:g1.x1,xs:g1.xs,ym:a?16:12,ys:a?4:3,xl:'t, с',yl:'v, см/с',c:'#7c3aed',cw:17};
+const Um=a?20:30,Tm=a?4:5;
+const L1=a?40:25,C1=a?10:4,Tc=2*PI*sq(L1*1e-3*C1*1e-6)*1e3;
+const L2=a?2:8,C2=50,f2=a?20:5,fr=1/(2*PI*sq(L2*1e-3*C2*1e-9))/1e3,Cn=1/(Math.pow(2*PI*f2*1e3,2)*L2*1e-3)*1e9;
+const n1=a?1100:500,U1=a?220:100,U2=a?44:300,I1=a?.2:1.5,n2=n1*U2/U1,I2=I1*U1/U2;
+const k=s=>s.toString().replace('.',',');
+const selH='Выберите формулу из списка.',numH=(u,e='')=>`Ответ: число без единиц измерения (${u}). Запятая или точка допустимы. ${e}`;
+const re2=/в 2 раз|вдвое|в два раза|2 раза/i,re3=/в 3 раз|втрое|в три раза|3 раза/i;
+return[
+{g:'11.4.1.1',q:`На рисунке дан график гармонических колебаний груза на пружине — зависимость координаты x от времени t (x — в см, t — в с).`,
+ svg:graph({...g1,f:t=>A*Math.cos(w*t),xl:'t, с',yl:'x, см',c:'#e11d48'}),
+ parts:[
+ {k:'sel',p:1,l:'Выберите уравнение колебаний, соответствующее графику.',o:[`x = ${A}·cos(${wt}·t)`,`x = ${A}·sin(${wt}·t)`,`x = ${A}·cos(${w2}·t)`,`x = ${A/2}·cos(${wt}·t)`],h:'Выберите уравнение из списка.'},
+ {k:'sel',p:1,l:'Какая формула определяет максимальную скорость груза?',o:['v_max = A·ω','v_max = A·ω²','v_max = A/ω','v_max = A·T'],h:selH},
+ {k:'num',p:1,l:'Найдите максимальную скорость груза.',a:vm,h:numH('в см/с','Округлите до сотых.')}]},
+{g:'11.4.1.1',q:`Для колебаний из задания 1 выберите рисунок, на котором верно изображён график зависимости скорости v(t) (масштаб по осям указан на рисунках).`,
+ parts:[{k:'rad',p:1,l:'Выберите один рисунок.',o:[
+ graph({...vc,f:t=>-vm*Math.sin(w*t)}),graph({...vc,f:t=>vm*Math.sin(w*t)}),graph({...vc,f:t=>vm*Math.cos(w*t)}),graph({...vc,f:t=>-vm*Math.cos(w*t)})],h:'Отметьте кружок под нужным рисунком.'}]},
+{g:'11.4.1.1',q:a?`Груз массой m на пружине жёсткостью k совершает гармонические колебания. Как изменится период колебаний, если массу груза увеличить в 4 раза? Запишите формулу периода и объясните ответ.`:`Груз массой m на пружине жёсткостью k совершает гармонические колебания. Как изменится период колебаний, если массу груза уменьшить в 9 раз? Запишите формулу периода и объясните ответ.`,
+ parts:[{k:'txt',p:2,r:[a?re2:re3,/√|корен|sqrt|2\s*π|пропорциональн/i],e:a?'Увеличится в 2 раза: T = 2π√(m/k), T ~ √m':'Уменьшится в 3 раза: T = 2π√(m/k), T ~ √m',h:'Ответ: 1–2 предложения. Запишите формулу периода и вывод: во сколько раз и как изменится период.'}]},
+{g:'11.4.2.1',q:a?`Опишите условия возникновения свободных и вынужденных электромагнитных колебаний в колебательном контуре.`:`Что необходимо для возникновения свободных колебаний в колебательном контуре и какие условия нужны для вынужденных колебаний?`,
+ parts:[{k:'txt',p:2,r:[/заряд|начальн|сообщ|энерги|выве[сд]|катушк/i,/внешн|переменн|периодическ|вынуждающ|источник/i],e:'Свободные: контур (L и C) выведен из равновесия — конденсатор заряжен/сообщена энергия, потери малы. Вынужденные: действует внешняя периодическая ЭДС (переменное напряжение)',h:'Ответ: 2–3 предложения. Отдельно укажите условия для свободных и для вынужденных колебаний.'}]},
+{g:'11.4.2.1',q:`Колебательный контур состоит из катушки индуктивностью L = ${L1} мГн и конденсатора ёмкостью C = ${C1} мкФ. Определите период свободных электромагнитных колебаний в контуре.`,
+ parts:[{k:'sel',p:1,l:'Какая формула применяется?',o:['T = 2π√(LC)','T = 2π√(L/C)','T = 1/(2π√(LC))','T = 2π·L·C'],h:selH},
+ {k:'num',p:1,l:'Найдите период колебаний.',a:Tc,h:numH('в мс','Округлите до сотых.')}]},
+{g:'11.4.2.2',q:`Установите аналогию между механическими и электромагнитными колебаниями: для каждой механической величины выберите её электромагнитный аналог.`,
+ parts:[{k:'mat',p:2,l:'Подберите аналоги.',rows:a?[['Координата x','заряд конденсатора q'],['Скорость v','сила тока i'],['Масса m','индуктивность L'],['Жёсткость пружины k','величина, обратная ёмкости, 1/C']]:[['Потенциальная энергия kx²/2','энергия электрического поля q²/(2C)'],['Кинетическая энергия mv²/2','энергия магнитного поля Li²/2'],['Коэффициент трения','активное сопротивление R'],['Ускорение a','скорость изменения силы тока Δi/Δt']],
+ o:a?['заряд конденсатора q','сила тока i','индуктивность L','величина, обратная ёмкости, 1/C','ёмкость C']:['энергия электрического поля q²/(2C)','энергия магнитного поля Li²/2','активное сопротивление R','скорость изменения силы тока Δi/Δt','напряжение u'],h:'Для каждой строки выберите один вариант из списка. Один вариант в списке лишний.'}]},
+{g:'11.4.3.1',q:`На рисунках показана модель генератора переменного тока: рамка вращается между полюсами магнита (вид сверху, ось вращения перпендикулярна плоскости рисунка). Выберите рисунок, на котором ${a?'в рамке индуцируется <b>максимальная ЭДС</b>':'магнитный поток через рамку <b>максимален</b>, а ЭДС равна нулю'}.`,
+ parts:[{k:'rad',p:1,l:'Выберите один рисунок.',o:a?[gen(0),gen(90),gen(45)]:[gen(90),gen(0),gen(60)],h:'Отметьте кружок под нужным рисунком.'}]},
+{g:'11.4.3.2',q:`На рисунке дан график мгновенного напряжения на зажимах генератора u(t) (u — в В, t — в мс). Определите по графику амплитуду U_m и период T, затем найдите действующее значение напряжения и частоту тока.`,
+ svg:graph({x1:a?8:10,xs:1,ym:a?24:36,ys:a?4:6,f:t=>Um*Math.sin(2*PI*t/Tm),xl:'t, мс',yl:'u, В',c:'#0891b2'}),
+ parts:[{k:'sel',p:1,l:'Формула действующего значения напряжения.',o:['U = U_m/√2','U = U_m·√2','U = U_m/2','U = U_m²/2'],h:selH},
+ {k:'num',p:1,l:'Найдите действующее значение напряжения.',a:Um/sq(2),h:numH('в В','Округлите до сотых.')},
+ {k:'sel',p:1,l:'Формула для частоты тока.',o:['ν = 1/T','ν = T','ν = 2π/T','ν = 1/(2πT)'],h:selH},
+ {k:'num',p:1,l:'Найдите частоту тока.',a:1000/Tm,h:numH('в Гц','Не забудьте перевести мс в с.')}]},
+{g:'11.4.3.1',q:a?`Объясните, почему при вращении рамки в магнитном поле в ней возникает переменная ЭДС индукции.`:`Как изменится амплитуда ЭДС в рамке генератора, если частоту вращения рамки увеличить в 2 раза? Ответ объясните.`,
+ parts:[{k:'txt',p:2,r:a?[/(измен|меня)[а-яё]* .*поток|поток[а-яё ]*(измен|меня)/i,/Фарадея|индукци|ε\s*=|e\s*=|sin|cos|синус|гармоническ/i]:[re2,/BSω|пропорциональ|ω|угловой скорост|быстрее/i],e:a?'Угол между рамкой и B меняется → магнитный поток Φ = BS·cos ωt меняется → по закону электромагнитной индукции e = −Φ′ = BSω·sin ωt':'Увеличится в 2 раза: E_m = BSω, амплитуда прямо пропорциональна угловой скорости',h:'Ответ: 2–3 предложения. Укажите причину и связанный с ней закон или формулу.'}]},
+{g:'11.4.3.3',q:a?`Сформулируйте условие резонанса в цепи переменного тока (колебательном контуре) и назовите две сферы применения резонанса.`:`При каком условии наступает резонанс в колебательном контуре? Приведите два примера применения (или учёта) резонанса.`,
+ parts:[{k:'txt',p:2,r:[/частот[а-яё]* .*(совпад|равн|одинаков)|(совпад|равн)[а-яё]* .*частот|собственн[а-яё]* частот/i,[/радио|настро|приём|прием/i,/медицин|МРТ|ЯМР|томограф/i,/музык|инструмент|гитар|скрипк|резонатор/i,/качел|раскач/i,/мост|разруш|вибраци/i,/СВЧ|микроволн/i]],e:'Условие: частота внешнего воздействия совпадает с собственной частотой контура (ν = ν₀). Применение: радиоприём (настройка), МРТ, музыкальные инструменты, СВЧ-печи; учёт — мосты, здания, машины',h:'Ответ: условие запишите словами или формулой, затем через запятую укажите две сферы применения.'}]},
+{g:'11.4.3.4',q:`В колебательном контуре индуктивность катушки L = ${L2} мГн, ёмкость конденсатора C = ${C2} нФ. Рассчитайте резонансную частоту контура, а затем определите, какую ёмкость нужно установить, чтобы настроить контур на частоту ${f2} кГц (индуктивность прежняя).`,
+ parts:[{k:'sel',p:1,l:'Формула резонансной частоты.',o:['ν = 1/(2π√(LC))','ν = 2π√(LC)','ν = √(LC)/(2π)','ν = 1/(2π·L·C)'],h:selH},
+ {k:'num',p:1,l:'Найдите резонансную частоту.',a:fr,h:numH('в кГц','Округлите до сотых.')},
+ {k:'sel',p:1,l:'Формула ёмкости для настройки на частоту ν.',o:['C = 1/(4π²ν²L)','C = 4π²ν²L','C = 1/(2πν²L)','C = ν²L/(4π²)'],h:selH},
+ {k:'num',p:1,l:`Найдите ёмкость для частоты ${f2} кГц.`,a:Cn,h:numH('в нФ','Округлите до десятых.')}]},
+{g:'11.4.3.6',q:`При экспериментальном определении числа витков обмоток трансформатора (потери энергии не учитывать) ученик получил данные: число витков первичной обмотки n₁ = ${n1}, напряжение на первичной обмотке U₁ = ${U1} В, напряжение на вторичной обмотке U₂ = ${U2} В, сила тока в первичной обмотке I₁ = ${k(I1)} А.`,
+ parts:[{k:'sel',p:1,l:'Определите тип трансформатора.',o:a?['понижающий','повышающий','определить нельзя']:['повышающий','понижающий','определить нельзя'],h:'Выберите вариант из списка.'},
+ {k:'sel',p:1,l:'Формула числа витков вторичной обмотки.',o:['n₂ = n₁·U₂/U₁','n₂ = n₁·U₁/U₂','n₂ = n₁·U₁·U₂','n₂ = n₁/(U₁·U₂)'],h:selH},
+ {k:'num',p:1,l:'Найдите число витков вторичной обмотки n₂.',a:n2,h:numH('целое число витков')},
+ {k:'sel',p:1,l:'Формула силы тока во вторичной обмотке.',o:['I₂ = I₁·U₁/U₂','I₂ = I₁·U₂/U₁','I₂ = I₁·U₁·U₂','I₂ = I₁'],h:selH},
+ {k:'num',p:1,l:'Найдите силу тока I₂.',a:I2,h:numH('в А','Округлите до сотых.')}]}
+]}
+
+/* ---------- РЕНДЕР ---------- */
+let tasks=[],S={on:false,warn:0},t0=0,tm=null,info={},data=null;
+const pw=n=>n==1?'балл':n<5?'балла':'баллов';
+function render(){let h='';tasks.forEach((t,i)=>{const mx=t.parts.reduce((s,p)=>s+p.p,0);
+h+=`<section class="card task"><h2><span class="n">${i+1}</span>Задание ${i+1} <b class="pt">[${mx} ${pw(mx)}]</b><small>Проверяемая цель ${t.g}</small></h2><p>${t.q}</p>${t.svg||''}`;
+t.parts.forEach((p,j)=>{const id=`p${i}_${j}`;
+h+=`<div class="part"><div>${p.l||''} <b class="pt">[${p.p} б]</b></div>`;
+if(p.k=='sel'){p.ord=rnd(p.o.map((_,x)=>x));h+=`<select id="${id}"><option value="">— выберите —</option>${p.ord.map(x=>`<option value="${x}">${p.o[x]}</option>`).join('')}</select>`}
+else if(p.k=='rad'){p.ord=rnd(p.o.map((_,x)=>x));h+=`<div class="opts">${p.ord.map((x,pos)=>`<label class="op"><input type="radio" name="${id}" value="${x}"> <b>${LET[pos]}</b>${p.o[x]}</label>`).join('')}</div>`}
+else if(p.k=='num')h+=`<input id="${id}" type="text" inputmode="decimal" autocomplete="off" placeholder="введите число">`;
+else if(p.k=='txt')h+=`<textarea id="${id}" placeholder="Введите ответ"></textarea>`;
+else{p.ord=rnd(p.o);p.rows.forEach((r,q)=>h+=`<div class="mrow"><span>${r[0]}</span><select id="${id}_${q}"><option value="">— выберите —</option>${p.ord.map(x=>`<option>${x}</option>`).join('')}</select></div>`)}
+h+=`<div class="hint">ℹ ${p.h}</div></div>`});h+='</section>'});
+$('#tasks').innerHTML=h}
+
+function collect(){let sc=0,out=[];tasks.forEach((t,i)=>t.parts.forEach((p,j)=>{const id=`p${i}_${j}`;let pt=0,ans='—',exp='';
+if(p.k=='sel'){const v=$('#'+id).value;ans=v===''?'—':p.o[v];pt=v==='0'?1:0;exp=p.o[0]}
+else if(p.k=='rad'){const c=document.querySelector(`input[name=${id}]:checked`);ans=c?'Рисунок '+LET[p.ord.indexOf(+c.value)]:'—';pt=c&&c.value==='0'?1:0;exp='Рисунок '+LET[p.ord.indexOf(0)]}
+else if(p.k=='num'){const raw=$('#'+id).value.trim(),x=parseFloat(raw.replace(',','.'));ans=raw||'—';pt=!isNaN(x)&&Math.abs(x-p.a)<=Math.max(.03*Math.abs(p.a),.01)?1:0;exp=''+fmt(p.a)}
+else if(p.k=='txt'){const s=$('#'+id).value.trim();ans=s||'—';pt=p.r.filter(r=>Array.isArray(r)?r.filter(z=>z.test(s)).length>=2:r.test(s)).length;exp=p.e}
+else{let c=0,as=[],ex=[];p.rows.forEach((r,q)=>{const v=$(`#${id}_${q}`).value;if(v===r[1])c++;as.push(`${r[0]} → ${v||'—'}`);ex.push(`${r[0]} → ${r[1]}`)});ans=as.join('; ');exp=ex.join('; ');pt=c==p.rows.length?2:c>=2?1:0}
+sc+=pt;out.push({n:i+1,l:(p.l||'').replace(/\.$/,''),a:ans,e:exp,p:pt,m:p.p})}));return{sc,out}}
+
+/* ---------- СТАРТ ---------- */
+const chk=()=>{$('#nx').disabled=!($('#nm').value.trim().length>=4&&$('#cl').value&&$('#vr').value)};
+['nm','cl','vr'].forEach(i=>$('#'+i).addEventListener('input',chk));
+const show=id=>['s1','s2','s3','s4'].forEach(x=>$('#'+x).classList.toggle('hid',x!=id));
+$('#nx').onclick=()=>show('s2');
+$('#go').onclick=()=>{info={name:$('#nm').value.trim().replace(/\s+/g,' '),cls:$('#cl').value,variant:$('#vr').value};
+tasks=build(+info.variant);render();$('#who').textContent=`${info.name} · ${info.cls} · Вариант ${info.variant}`;
+show('s3');window.scrollTo(0,0);S={on:true,warn:0,out:false};t0=Date.now();base={w:innerWidth,h:innerHeight};
+tm=setInterval(tick,1000);tick()};
+function tick(){const r=Math.max(0,DUR-Math.floor((Date.now()-t0)/1000));$('#tm').textContent='⏱ '+String(Math.floor(r/60)).padStart(2,'0')+':'+String(r%60).padStart(2,'0');$('#bar').classList.toggle('low',r<300);if(r<=0)finish('Время вышло')}
+$('#fin').onclick=()=>{if(confirm('Завершить работу и отправить ответы? Вернуться к заданиям будет нельзя.'))finish('Завершено учащимся')};
+
+/* ---------- АНТИЧИТ ---------- */
+let base={w:0,h:0},kb=false,kt=0,rt=0;
+const foc=()=>/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||'');
+addEventListener('focusin',()=>{kb=foc();clearTimeout(kt)});
+addEventListener('focusout',()=>{clearTimeout(kt);kt=setTimeout(()=>{kb=foc()},1500)});
+document.addEventListener('visibilitychange',()=>{if(S.on&&document.hidden)finish('Сворачивание окна / переключение вкладки')});
+addEventListener('pagehide',()=>{if(S.on)finish('Уход со страницы')});
+addEventListener('beforeunload',e=>{if(S.on){e.preventDefault();e.returnValue=''}});
+addEventListener('resize',()=>{if(!S.on)return;clearTimeout(rt);rt=setTimeout(()=>{
+const dw=Math.abs(innerWidth-base.w)/base.w,dh=Math.abs(innerHeight-base.h)/base.h,bad=dw>.12||(!kb&&dh>.2);
+if(bad&&!S.out){S.out=true;S.warn++;if(S.warn>=2)finish('Повторное изменение размера окна');else warn('⚠ Изменён размер окна браузера! Верните прежний размер. При повторном нарушении работа будет завершена автоматически.')}
+else if(!bad)S.out=false},500)});
+function warn(t){$('#mt').textContent=t;$('#md').classList.remove('hid')}
+$('#mok').onclick=()=>$('#md').classList.add('hid');
+document.addEventListener('contextmenu',e=>{if(S.on)e.preventDefault()});
+
+/* ---------- ЗАВЕРШЕНИЕ ---------- */
+function dev(){const u=navigator.userAgent;const os=/iPhone|iPad/.test(u)?'iOS':/Android/.test(u)?'Android':/Windows/.test(u)?'Windows':/Mac/.test(u)?'macOS':/Linux/.test(u)?'Linux':'?';
+const br=/Edg\//.test(u)?'Edge':/OPR\//.test(u)?'Opera':/Chrome|CriOS/.test(u)?'Chrome':/Firefox|FxiOS/.test(u)?'Firefox':/Safari/.test(u)?'Safari':'?';
+return `${os} · ${br} · ${screen.width}×${screen.height} · ${/Mobi|Android|iPhone/.test(u)?'телефон':'ПК/планшет'}`}
+function finish(reason){if(!S.on)return;S.on=false;clearInterval(tm);$('#md').classList.add('hid');
+const{sc,out}=collect(),sp=Math.min(DUR,Math.round((Date.now()-t0)/1000));
+data={...info,score:sc,max:MAXS,device:dev(),spent:`${Math.floor(sp/60)} мин ${sp%60} с`,reason,warns:S.warn,answers:out};
+show('s4');$('#rs').textContent=`${info.name} · ${info.cls} · Вариант ${info.variant}`;$('#sc').textContent=`${sc} / ${MAXS}`;
+if(reason!='Завершено учащимся'&&reason!='Время вышло')$('#rs').textContent+=` · Работа завершена: ${reason}`;
+send()}
+function send(){const st=$('#st');st.textContent='Отправка результата…';$('#rt').classList.add('hid');
+if(SHEET_URL.startsWith('ВСТАВЬТЕ')){st.textContent='⚠ Не указан URL Google Apps Script';return}
+fetch(SHEET_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
+.then(()=>st.textContent='✅ Результат отправлен учителю').catch(()=>{st.textContent='⚠ Не удалось отправить. Проверьте интернет и нажмите кнопку.';$('#rt').classList.remove('hid')})}
+$('#rt').onclick=send;
+</script></body></html>
